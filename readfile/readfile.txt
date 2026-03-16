@@ -1,0 +1,4 @@
+Text files are simple computer files containing 
+plain, unformatted text characters (ASCII or Unicode) organized into lines. 
+They contain no formatting like bolding or images, allowing for small file sizes,
+universal compatibility across operating systems, and easy editing via tools l
