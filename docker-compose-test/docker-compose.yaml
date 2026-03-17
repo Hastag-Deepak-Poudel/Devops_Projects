@@ -1,0 +1,8 @@
+services:
+  myapi:
+    build: ./api-test
+    container_name: myapi_container
+    environment:
+      - MOVIE_NAME=avengers
+    ports:
+      - '3000:3000'

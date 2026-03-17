@@ -1,0 +1,3 @@
+api-key = 1ce11b9b
+
+http://www.omdbapi.com/?apikey=1ce11b9b&t={movie_name} 
