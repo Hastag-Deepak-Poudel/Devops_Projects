@@ -1,0 +1,5 @@
+services:
+  myapp:
+    build: ./py_server
+    ports: 
+      - '8000:8000'

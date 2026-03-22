@@ -1,0 +1,28 @@
+pipeline {
+    agent any
+    stages {
+        stage("Clone") {
+            steps {
+                echo "I am cloning a git repo!!!"
+                git url: 'https://github.com/Hastag-Deepak-Poudel/weather-app-with-dockercompose-jenkins.git/', branch: 'main'
+                echo "Git repo cloned successfully."
+            }
+        }
+        stage("Build Image") {
+            steps {
+                script {
+                    sh "docker compose build"
+                }
+            }
+        }
+        stage("Clean Up"){
+            steps{
+                sh '''
+                docker stop $(docker ps -q) || true
+                docker rm $(docker ps -aq) || true
+                docker system prune -a -f
+                '''
+            }
+        }
+    }
+}

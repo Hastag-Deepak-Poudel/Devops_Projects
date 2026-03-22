@@ -1,0 +1,54 @@
+pipeline {
+    agent { label "sam" }
+    environment {
+        IMAGE_NAME = "weather-app"
+    }
+    stages {
+        stage("Clone") {
+            steps {
+                echo "I am cloning a git repo!!!"
+                git url: 'https://github.com/Hastag-Deepak-Poudel/Weather-App-Jenkins.git', branch: 'main'
+                echo "Git repo cloned successfully."
+            }
+        }
+        stage("Build Image") {
+            steps {
+                script {
+                    docker.build("${IMAGE_NAME}:${env.BUILD_NUMBER}")
+                    echo "Image Built Successfully"
+                }
+            }
+        }
+        stage("Push in Docker Registry") {
+            steps {
+                echo "Pushing the image to docker"
+                script {
+                    withCredentials([usernamePassword(
+                        credentialsId: "dockers-cred",
+                        usernameVariable: "dockerHubUser",
+                        passwordVariable: "dockerHubPass"
+                    )]) {
+                        sh "echo ${dockerHubPass} | docker login -u ${dockerHubUser} --password-stdin"
+                        sh "docker image tag ${IMAGE_NAME}:${env.BUILD_NUMBER} ${dockerHubUser}/weather-app:${env.BUILD_NUMBER}"
+                        sh "docker push ${dockerHubUser}/weather-app:${env.BUILD_NUMBER}"
+                    }
+                }
+            }
+        }
+        stage("Clean Up"){
+            steps{
+                sh '''
+                docker stop $(docker ps -q) || true
+                docker rm $(docker ps -aq) || true
+                docker system prune -a -f
+                '''
+            }
+        }
+        stage("Delete Git repo from agent machine"){
+            steps{
+                deleteDir()
+                echo "Pipeline ran successfully and deleted all related files related to pipeline"
+            }
+        }
+    }
+}

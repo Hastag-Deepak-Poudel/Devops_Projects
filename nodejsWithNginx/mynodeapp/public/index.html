@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Invitation - Professional Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600;700&family=Work+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="tooplate-event-invitation.css">
+<!--
+
+Tooplate 2152 Event Invitation
+
+https://www.tooplate.com/view/2152-event-invitation
+
+Free HTML CSS Template
+
+-->
+</head>
+<body>
+    <!-- Dark Mode Toggle -->
+    <div class="theme-toggle">
+        <div class="theme-option light-option" id="lightMode" title="Light Mode"></div>
+        <div class="theme-option dark-option" id="darkMode" title="Dark Mode"></div>
+    </div>
+
+    <!-- Decorative Shapes -->
+    <div class="bg-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Hero Section - Split Layout -->
+        <section class="hero-section">
+            <div class="hero-content">
+                <div class="hero-badge">Event Invitation</div>
+                <h1 class="hero-title">You're <strong>Invited</strong></h1>
+                <p class="hero-description">Join us for an exceptional gathering with colleagues and friends. An evening of connection, celebration, and memorable moments.</p>
+            </div>
+
+            <div class="hero-details">
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <div class="detail-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <rect x="3" y="6" width="18" height="15" rx="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M3 10h18M8 3v3M16 3v3" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <div class="detail-label">Date</div>
+                            <div class="detail-value">December 31, 2025</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <div class="detail-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="12" cy="12" r="9"/>
+                                <path d="M12 7v5l3.5 2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <div class="detail-label">Time</div>
+                            <div class="detail-value">5:00 PM - 10:00 PM</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <div class="detail-header">
+                        <div class="detail-icon">
+                            <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" stroke-linejoin="round"/>
+                                <circle cx="12" cy="9" r="2.5"/>
+                            </svg>
+                        </div>
+                        <div class="detail-info">
+                            <div class="detail-label">Location</div>
+                            <div class="detail-value">Grand Ballroom</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Countdown Section -->
+        <div class="countdown-wrapper">
+            <div class="countdown-inner">
+                <div class="countdown-label">Time Until Event</div>
+                <div class="countdown" id="countdown">
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="days">0</div>
+                        <div class="countdown-unit">Days</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="hours">0</div>
+                        <div class="countdown-unit">Hours</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="minutes">0</div>
+                        <div class="countdown-unit">Minutes</div>
+                    </div>
+                    <div class="countdown-item">
+                        <div class="countdown-number" id="seconds">0</div>
+                        <div class="countdown-unit">Seconds</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RSVP Section -->
+        <section class="rsvp-section">
+            <div class="rsvp-inner">
+                <div class="success-message" id="successMessage">
+                    <div class="success-icon">✓</div>
+                    <div class="success-text">Thank you! Your RSVP has been received.</div>
+                </div>
+
+                <div class="form-header">
+                    <h2 class="form-title">Confirm Your <strong>Attendance</strong></h2>
+                    <p class="form-subtitle">We'd love to have you join us for this special occasion</p>
+                </div>
+
+                <form id="rsvpForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name *</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="lastName">Last Name *</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" placeholder="john.doe@example.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+                    </div>
+
+                    <div class="form-group">
+                        <label>Will You Be Attending? *</label>
+                        <div class="rsvp-options">
+                            <div class="rsvp-option">
+                                <input type="radio" id="attending" name="attending" value="yes" required>
+                                <label for="attending">Yes, I'll attend</label>
+                            </div>
+                            <div class="rsvp-option">
+                                <input type="radio" id="notAttending" name="attending" value="no">
+                                <label for="notAttending">Can't make it</label>
+                            </div>
+                            <div class="rsvp-option">
+                                <input type="radio" id="maybe" name="attending" value="maybe">
+                                <label for="maybe">Not sure yet</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="guests">Number of Guests</label>
+                        <select id="guests" name="guests">
+                            <option value="1">1 Guest</option>
+                            <option value="2">2 Guests</option>
+                            <option value="3">3 Guests</option>
+                            <option value="4">4 Guests</option>
+                            <option value="5">5+ Guests</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="dietary">Dietary Restrictions</label>
+                        <textarea id="dietary" name="dietary" placeholder="Please let us know of any dietary preferences or restrictions..."></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Confirm RSVP</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <p>Design: <a rel="nofollow" href="https://tooplate.com" target="_blank">Tooplate</a> | Professional Invitation Portal</p>
+            <p>Customizable template for corporate events and professional gatherings</p>
+        </footer>
+    </div>
+<script src="tooplate-event-scripts.js"></script>
+</body>
+</html>

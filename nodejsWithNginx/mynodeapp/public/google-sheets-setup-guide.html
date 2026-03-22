@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Integration Setup Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@200;300;400;500;600&family=Work+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1614;
+            --accent: #957C62;
+            --accent-light: #b09686;
+            --bg-cream: #faf8f6;
+            --bg-white: #ffffff;
+            --text-primary: #1a1614;
+            --text-secondary: #6b635c;
+            --text-muted: #9d9690;
+            --border: rgba(149, 124, 98, 0.15);
+            --code-bg: #f5f1ed;
+        }
+
+        body {
+            font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-cream);
+            color: var(--text-primary);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 64px;
+            padding-bottom: 32px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 200;
+            color: var(--primary);
+            margin-bottom: 16px;
+            letter-spacing: -2px;
+            line-height: 1;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            color: var(--text-secondary);
+        }
+
+        h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 2rem;
+            font-weight: 400;
+            color: var(--accent);
+            margin-top: 56px;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--primary);
+            margin-top: 32px;
+            margin-bottom: 16px;
+        }
+
+        p {
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 16px;
+        }
+
+        ol, ul {
+            margin-left: 24px;
+            margin-bottom: 24px;
+        }
+
+        li {
+            font-size: 1.125rem;
+            font-weight: 300;
+            color: var(--text-primary);
+            margin-bottom: 12px;
+            padding-left: 8px;
+        }
+
+        li strong {
+            font-weight: 500;
+            color: var(--accent);
+        }
+
+        code {
+            font-family: 'Courier New', monospace;
+            font-size: 0.85em;
+            background: var(--code-bg);
+            padding: 3px 8px;
+            border-radius: 4px;
+            color: var(--accent);
+        }
+
+        pre {
+            background: var(--code-bg);
+            border-left: 4px solid var(--accent);
+            padding: 24px;
+            margin: 24px 0;
+            overflow-x: auto;
+            border-radius: 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: var(--text-primary);
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .step {
+            background: var(--bg-white);
+            padding: 32px;
+            margin-bottom: 32px;
+            border-left: 4px solid var(--accent);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+        }
+
+        .step-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 500;
+            font-size: 1.125rem;
+            margin-bottom: 16px;
+        }
+
+        .note {
+            background: linear-gradient(135deg, var(--accent-light), var(--accent));
+            color: white;
+            padding: 24px 32px;
+            margin: 32px 0;
+            border-radius: 0;
+            border-left: 4px solid var(--accent);
+        }
+
+        .note strong {
+            display: block;
+            font-size: 1.125rem;
+            margin-bottom: 8px;
+        }
+
+        .warning {
+            background: #fef3c7;
+            border-left: 4px solid #f59e0b;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .warning strong {
+            color: #92400e;
+        }
+
+        .success {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 20px 24px;
+            margin: 24px 0;
+        }
+
+        .success strong {
+            color: #065f46;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            background: var(--accent);
+            color: white;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 16px;
+        }
+
+        .btn:hover {
+            background: var(--accent-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(149, 124, 98, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding-top: 48px;
+            margin-top: 64px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            font-weight: 300;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: var(--accent-light);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 40px 20px 60px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            h2 {
+                font-size: 1.75rem;
+                margin-top: 40px;
+            }
+
+            .step {
+                padding: 24px 20px;
+            }
+
+            pre {
+                padding: 16px;
+                font-size: 0.75rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Google Sheets Integration</h1>
+            <p class="subtitle">Setup Guide for RSVP Form</p>
+        </header>
+
+        <p>Follow these steps to connect your RSVP form to Google Sheets. This will allow you to automatically collect and organize all form submissions in a spreadsheet.</p>
+
+        <div class="step">
+            <div class="step-number">1</div>
+            <h3>Create a Google Sheet</h3>
+            <ol>
+                <li>Go to <a href="https://sheets.google.com" target="_blank">Google Sheets</a></li>
+                <li>Create a new spreadsheet</li>
+                <li>Name it "RSVP Responses" (or whatever you prefer)</li>
+                <li>In the first row, add these column headers:
+                    <ul>
+                        <li><strong>A1:</strong> First Name</li>
+                        <li><strong>B1:</strong> Last Name</li>
+                        <li><strong>C1:</strong> Email</li>
+                        <li><strong>D1:</strong> Phone</li>
+                        <li><strong>E1:</strong> Attending</li>
+                        <li><strong>F1:</strong> Guests</li>
+                        <li><strong>G1:</strong> Dietary Restrictions</li>
+                        <li><strong>H1:</strong> Submitted At</li>
+                    </ul>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">2</div>
+            <h3>Create Google Apps Script</h3>
+            <ol>
+                <li>In your Google Sheet, click <strong>Extensions</strong> → <strong>Apps Script</strong></li>
+                <li>Delete any code in the script editor</li>
+                <li>Copy and paste the following code:</li>
+            </ol>
+
+            <pre><code>function doPost(e) {
+  try {
+    // Get the active spreadsheet
+    var sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    
+    // Parse the incoming data
+    var data = JSON.parse(e.postData.contents);
+    
+    // Create array of values to append
+    var rowData = [
+      data.firstName || '',
+      data.lastName || '',
+      data.email || '',
+      data.phone || '',
+      data.attending || '',
+      data.guests || '',
+      data.dietary || '',
+      data.submittedAt || new Date().toLocaleString()
+    ];
+    
+    // Append the row to the sheet
+    sheet.appendRow(rowData);
+    
+    // Return success response
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'success', 'row': sheet.getLastRow() }))
+      .setMimeType(ContentService.MimeType.JSON);
+      
+  } catch (error) {
+    // Return error response
+    return ContentService
+      .createTextOutput(JSON.stringify({ 'result': 'error', 'error': error.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}</code></pre>
+
+            <ol start="4">
+                <li>Click the <strong>Save</strong> icon (💾) or press Ctrl+S / Cmd+S</li>
+                <li>Name your project (e.g., "RSVP Form Handler")</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">3</div>
+            <h3>Deploy the Script</h3>
+            <ol>
+                <li>Click <strong>Deploy</strong> → <strong>New deployment</strong></li>
+                <li>Click the gear icon ⚙️ next to "Select type"</li>
+                <li>Choose <strong>Web app</strong></li>
+                <li>Configure the deployment:
+                    <ul>
+                        <li><strong>Description:</strong> RSVP Form Handler</li>
+                        <li><strong>Execute as:</strong> Me (your email)</li>
+                        <li><strong>Who has access:</strong> Anyone</li>
+                    </ul>
+                </li>
+                <li>Click <strong>Deploy</strong></li>
+                <li>You may need to authorize the script:
+                    <ul>
+                        <li>Click <strong>Authorize access</strong></li>
+                        <li>Choose your Google account</li>
+                        <li>Click <strong>Advanced</strong> → <strong>Go to [project name] (unsafe)</strong></li>
+                        <li>Click <strong>Allow</strong></li>
+                    </ul>
+                </li>
+                <li><strong>Copy the Web app URL</strong> - it will look like:<br>
+                    <code>https://script.google.com/macros/s/ABC123.../exec</code>
+                </li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">4</div>
+            <h3>Update Your HTML File</h3>
+            <ol>
+                <li>Open your <code>professional-invitation-portal.html</code> file</li>
+                <li>Find this line (around line 1060):</li>
+            </ol>
+            <pre><code>const scriptURL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE';</code></pre>
+            <ol start="3">
+                <li>Replace <code>'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'</code> with your actual URL:</li>
+            </ol>
+            <pre><code>const scriptURL = 'https://script.google.com/macros/s/ABC123.../exec';</code></pre>
+            <ol start="4">
+                <li>Save the file</li>
+            </ol>
+        </div>
+
+        <div class="step">
+            <div class="step-number">5</div>
+            <h3>Test It!</h3>
+            <ol>
+                <li>Open your HTML file in a browser</li>
+                <li>Fill out and submit the form</li>
+                <li>Check your Google Sheet - you should see a new row with the form data!</li>
+            </ol>
+        </div>
+
+        <div class="success">
+            <strong>✓ Success!</strong>
+            <p>Your RSVP form is now connected to Google Sheets. All submissions will automatically appear in your spreadsheet.</p>
+        </div>
+
+        <h2>Troubleshooting</h2>
+
+        <div class="warning">
+            <strong>Form not submitting?</strong>
+            <ul>
+                <li>Check browser console for errors (F12 → Console tab)</li>
+                <li>Make sure the script URL is correct</li>
+                <li>Verify the script is deployed with "Anyone" access</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>Data not appearing in sheet?</strong>
+            <ul>
+                <li>Check that column headers match exactly</li>
+                <li>Look at the Apps Script logs: Apps Script → Executions</li>
+                <li>Try re-deploying the script</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <strong>Authorization issues?</strong>
+            <ul>
+                <li>Re-deploy the script</li>
+                <li>Make sure you clicked "Allow" during authorization</li>
+                <li>Try using an incognito/private browser window</li>
+            </ul>
+        </div>
+
+        <h2>Important Notes</h2>
+
+        <div class="note">
+            <strong>Privacy & Security</strong>
+            <p>The form data is sent to YOUR Google Sheet (not visible to form users). You can view, download, or analyze responses in the Google Sheet. The script runs under your Google account permissions.</p>
+        </div>
+
+        <ul>
+            <li>You can set up email notifications in Google Sheets: <strong>Tools</strong> → <strong>Notification rules</strong></li>
+            <li>The script is completely free to use</li>
+            <li>You can customize the Google Apps Script to add more functionality</li>
+            <li>Data is stored securely in your Google Drive</li>
+        </ul>
+
+        <h2>Optional: Add Email Notifications</h2>
+
+        <p>To get notified when someone submits:</p>
+
+        <ol>
+            <li>In Google Sheets, click <strong>Tools</strong> → <strong>Notification rules</strong></li>
+            <li>Choose "A user submits a form" or "Any changes are made"</li>
+            <li>Set notification frequency</li>
+            <li>Click <strong>Save</strong></li>
+        </ol>
+
+        <footer>
+            <p>Design: <a href="https://tooplate.com" target="_blank">Tooplate</a> | Professional Invitation Portal</p>
+            <p style="margin-top: 8px;">Need help? Check the browser console for error messages or review the setup steps above.</p>
+        </footer>
+    </div>
+</body>
+</html>
