@@ -1,0 +1,12 @@
+In Python, managing files requires careful handling to ensure they are
+opened and closed properly. Leaving files open can lead to data corruption
+or other unexpected behaviors. The with statement simplifies this process,
+making file operations cleaner and more efficient. When you use with to
+open a file, it ensures that the file is closed automatically once the operations
+within its block are completed, regardless of whether these operations were
+successful or raised an exception. This automatic handling not only makes
+the code more readable by eliminating the need for an explicit close() call
+but also adds a layer of safety, ensuring that resources are promptly freed
+and reducing the risk of file-related errors.
+
+A new line is added.
