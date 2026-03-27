@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-deployment
+  labels:
+    app: node-app
+spec:
+  replicas: 3 # To create replica of the same pod.
+  selector:
+    matchLabels:
+      app: node-app # Must be similar to the selector of service
+  template:
+    metadata:
+      labels:
+        app: node-app
+    spec:
+      containers:
+      - name: node-app
+        image: silversoul007/doc-to-kub:latest  // Pushing the image to the dockerio
+        ports:
+        - containerPort: 80

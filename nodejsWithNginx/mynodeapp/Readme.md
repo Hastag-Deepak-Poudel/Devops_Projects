@@ -7,7 +7,8 @@ sudo system start nginx
 
 do:
 sudo vim /etc/nginx/conf.d/nodeapp.conf
-        inside the .conf file, write: server {
+        inside the .conf file, write: 
+        server {
     listen 80;
     server_name _;
 
