@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-example # This is path based ingress example
+spec:
+  rules:
+  - host: "mynewapps.com"
+    http:
+      paths:
+      - path: /timer
+        pathType: Prefix
+        backend:
+          service:
+            name: timer-service
+            port:
+              number: 5001
+      - path: /static        # This path is unnecessary if you make changes in your source code to match /timer in route
+        pathType: Prefix
+        backend:
+          service:
+            name: timer-service
+            port:
+              number: 5001
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: todo-service
+            port:
+              number: 80
+
+
+
