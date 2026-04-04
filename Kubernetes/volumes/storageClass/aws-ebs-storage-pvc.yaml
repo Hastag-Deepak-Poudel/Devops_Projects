@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: my-cloud-pvc
+spec:
+  storageClassName: fast-ssd  # the name used from myStorageClass for storageClass.
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 20Gi

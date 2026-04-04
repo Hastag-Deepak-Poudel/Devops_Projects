@@ -1,0 +1,35 @@
+# The data is stored in the container. If the mongo process is killed, the pod will be restarted and the data inside the 
+# mongo is also deleted.
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-deployment
+  labels:
+    app: mongo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo
+  template:
+    metadata:
+      labels:
+        app: mongo
+    spec:
+      containers:
+      - name: mongo
+        image: mongo:4.4
+        args: ["--dbpath", "/data/db"]
+        env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            value: "admin"
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            value: "password"
+        volumeMounts:
+          - mountPath: /data/db
+            name: mongo-volume # add the name from the Volumes: name:_______
+      volumes:
+        - name: mongo-volume # first create volume than do volumeMounts
+          emptyDir: {} # The data is stored in this emptyDir of the minikube which can be done by minikube ssh to get persistant data.
