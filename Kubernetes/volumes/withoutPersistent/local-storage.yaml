@@ -31,7 +31,7 @@ spec:
           - mountPath: /data/db
             name: mongo-volume # add the name from the Volumes: name:_______
       volumes:
-        - name: mongo-volume # first create volume than do volumeMounts
+        - name: mongo-volume # first creates volume than do volumeMounts
           hostPath:
             path: /data # This data is inside the minikube node.
 
