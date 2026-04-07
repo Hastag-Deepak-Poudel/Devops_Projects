@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: frontend
+spec:
+  containers:
+  - name: app
+    image: polinux/stress
+    command: ["stress"]
+    args: [ "--cpu" ,"2", "--io", "1", "--vm", "1", "--vm-bytes", "3G"]
+    resources:
+      requests: # The node must have this spec to run the container.
+        memory: "1Gi"
+        cpu: "1"
+      limits: # This is the maximum number of spec that the container can use, if it exceeds the cpu then the cpu throttles and if it exceeds memory , then container stops working OOMKILLED(Out of memory killed)
+        memory: "2Gi"
+        cpu: "2"
+

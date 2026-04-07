@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              # matchExpressions:
+              # - key: label123 # When the label doesnot match, any random node is selected.
+              #   operator: In
+              #   values:
+              #   - label123
+              matchExpressions:
+              - key: label # Here my node has label, label = myLabel thus this node is selected. otherwise any node can be selected
+                operator: In
+                values:
+                - myLabel
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80

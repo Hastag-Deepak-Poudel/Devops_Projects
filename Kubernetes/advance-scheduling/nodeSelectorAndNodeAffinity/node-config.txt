@@ -1,0 +1,50 @@
+apiVersion: v1
+kind: Node
+metadata:
+  annotations:
+    node.alpha.kubernetes.io/ttl: "0"
+    volumes.kubernetes.io/controller-managed-attach-detach: "true"
+  creationTimestamp: "2026-04-06T05:46:51Z"
+  labels:
+    beta.kubernetes.io/arch: amd64
+    beta.kubernetes.io/os: linux
+    kubernetes.io/arch: amd64
+    kubernetes.io/hostname: kind-worker2
+    kubernetes.io/os: linux
+    label: myLabel # THIS IS MY CUSTOM LABEL TO SELECT WHICH NODE TO RUN
+  name: kind-worker2
+  resourceVersion: "6784"
+  uid: fb4ce4b2-76f2-4e75-a9c9-0454dc58a9f2
+spec:
+  podCIDR: 10.244.1.0/24
+  podCIDRs:
+  - 10.244.1.0/24
+  providerID: kind://docker/kind/kind-worker2
+status:
+  addresses:
+  - address: 172.18.0.3
+    type: InternalIP
+  - address: kind-worker2
+    type: Hostname
+  allocatable:
+    cpu: "6"
+    ephemeral-storage: 485737Mi
+    hugepages-1Gi: "0"
+    hugepages-2Mi: "0"
+    memory: 7459428Ki
+    pods: "110"
+  conditions:
+  - lastHeartbeatTime: "2026-04-06T07:01:22Z"
+    lastTransitionTime: "2026-04-06T05:46:51Z"
+    message: kubelet has sufficient memory available
+    reason: KubeletHasSufficientMemory
+    status: "False"
+    type: MemoryPressure
+  - lastHeartbeatTime: "2026-04-06T07:01:22Z"
+    lastTransitionTime: "2026-04-06T05:46:51Z"
+    message: kubelet has no disk pressure
+    reason: KubeletHasNoDiskPressure
+    status: "False"
+    type: DiskPressure
+  - lastHeartbeatTime: "2026-04-06T07:01:22Z"
+

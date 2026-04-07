@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+      nodeSelector:
+        label: myLabel # Here, my node-worker-2 has label as label=myLabel, thus this pod only runs on worker-2
+
+# Here custom label is used for selecting node for the pod to run,
+# otherwise various inbuilt node labels such as hostname, ostype, architecture, location/geography etc.
+# some common custom labels are disktype= ssd, environment = prod, gpu= true
+# To show the labels of node,
+# kubectl get nodes --show-labels

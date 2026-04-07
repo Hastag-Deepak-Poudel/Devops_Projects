@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      tolerations:
+      - key: "key1"
+        operator: "Equal"
+        value: "value1"
+        effect: "NoSchedule"
+      # toleationSeconds: 3600, this means that the pod will be evicted when the 
+                          #tolerationSeconds is finished. This is only applicable to only NoExecute effect.
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+#                                                        <NODE NAME>  <any-KEY>=<any-VALUE>:EFFECT
+# HERE: TO APPLY TAINT IN THE NODE: "kubectl taint nodes kind-worker2 key1=value1:NoSchedule
+# HERE: TO remove TAINT IN THE NODE: "kubectl taint nodes kind-worker2 key1=value1:NoSchedule-3"
+
+# WHEN WE HAVE MULTIPLE NODES AND ONE NODE IS TAINTED AND IF WE APPLY TOLERATION IN THE POD THEN ANY NODE CAN BE SELECTED TO RUN THE POD.

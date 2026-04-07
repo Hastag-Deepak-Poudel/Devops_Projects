@@ -1,0 +1,17 @@
+# When we apply ResourceQuota of the namespace, then any pods created
+# in the namespace must follow the specs that are mentioned.
+# when a pod is created and if it doesnot match any reourceQuota, then it is in pending 
+# state and when a ResourceQuota match the pod then it goes into running state.
+
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: resource-quota-example
+  namespace: example-namespace
+spec:
+  hard:
+    pods: "1"
+    requests.cpu: "2"
+    requests.memory: "5Gi"
+    limits.cpu: "4"
+    limits.memory: "10Gi"

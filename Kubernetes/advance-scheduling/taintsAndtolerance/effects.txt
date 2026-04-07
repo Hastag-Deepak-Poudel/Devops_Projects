@@ -1,0 +1,24 @@
+FROM KUBERNTES DOCUMENTATION
+
+effects of NoSchedule, PreferNoSchedule, NoExecute
+
+NoExecute
+    This affects pods that are already running on the node as follows:
+
+        Pods that do not tolerate the taint are evicted immediately
+        Pods that tolerate the taint without specifying tolerationSeconds in their toleration specification remain bound forever
+        Pods that tolerate the taint with a specified tolerationSeconds remain bound for the specified amount of time. After that time elapses, the node lifecycle controller evicts the Pods from the node.
+
+NoSchedule
+    No new Pods will be scheduled on the tainted node unless they have a matching toleration. Pods currently running on the node are not evicted.
+
+PreferNoSchedule
+    PreferNoSchedule is a "preference" or "soft" version of NoSchedule. The control plane will try to avoid placing a Pod that does not tolerate the taint on the node, but it is not guaranteed.
+
+    
+
+For example, to taint a node like this:
+
+	kubectl taint nodes node1 key1=value1:NoSchedule
+	kubectl taint nodes node1 key1=value1:NoExecute
+	kubectl taint nodes node1 key2=value2:NoSchedule

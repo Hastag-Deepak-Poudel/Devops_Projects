@@ -1,0 +1,49 @@
+# requiredDuringSchedulingIgnoredDuringExecution (HARD rule)
+
+# This is mandatory.
+
+# Pod will ONLY be scheduled on nodes that match the rule
+# If no node matches → pod stays Pending
+# Kubernetes won’t compromise
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: nginx
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      affinity:
+        nodeAffinity:
+            requiredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+            preference:
+              matchExpressions:
+              - key: label 
+                operator: In
+                values:
+                - myLabel
+      containers:
+      - name: nginx
+        image: nginx:1.14.2
+        ports:
+        - containerPort: 80
+
+# Real-world usage
+# Use required when:
+# GPU nodes only
+# SSD required
+# Security/compliance isolation
+# Use preferred when:
+# “Try to run in same zone”
+# “Prefer faster nodes”
+# “Spread load nicely”

@@ -1,0 +1,15 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: payments
+  name: pod-reader
+rules:
+- apiGroups: [""] # "" indicates the core API group
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+
+# which evere userAccount or serviceAccount is assigned with this role, they will be able
+# to run get pods and watch pods commands. If resources is changed from pods to configMaps,
+# then they will be able to run get configMaps and list configMaps only within the payments ns.
+# if any other namespace try to run , then it will fail. This is only restricted to the payment 
+# namespace.
