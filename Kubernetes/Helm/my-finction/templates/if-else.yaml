@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+  labels:
+    app: webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: webapp
+  template:
+    metadata:
+      labels:
+        app: webapp
+    spec:
+      containers:
+      - name: webapp
+      {{- if eq .Values.environment "prod" }}
+      - image: webapp:prod
+      {{- else if eq .Values.environment "dev" }} # Dev is selected because in the env of values, env == dev.
+      - image: webapp:dev
+      {{- else }}
+      - image: webapp
+      {{- end }}
+        ports:
+        - containerPort: 80

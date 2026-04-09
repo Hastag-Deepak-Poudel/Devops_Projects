@@ -1,0 +1,10 @@
+name: test
+drink: tea
+food: pizza
+
+
+environment: dev
+serviceaccount:
+  create: true
+
+# when create == true, then service account is created which is inside the service.yaml file.

@@ -1,0 +1,80 @@
+WHY:
+	Developers face tremendous pressure to ensure the applications are lightweight and scalable. Helm allows users to more simply deploy and manage the lige cycle tof kubernetes applications. It abstracts many of the complexities behind configuring kubernetes applications and allows teams to be more productive on the platform.
+	
+WHAT:
+	Helm is an open source tool used for packaging and deploying applications on kubernetes. It is often referred to as the kubernetes Package Manager because of its similarities to any other package manager you would find on your favourite OS. It is widely used throughout the kubernetes community ans is a CNCF graduated project.
+	
+	Helm relies on repositories to provide widespread access to charts. Chart developers create declarative YAML files, package them into chart , and publich them to chart repositories. End users then use Helm to search for existing charts to deploy onto kubernetes, similar to how end users of dnf will search for RPM packages to deploy to fedora.
+	
+	Basic Example:
+	---------->       helm install redis bitnami/redis --namespace=redis
+	
+	This would install the redis chart from the bitnami chart repository to a Kubernetes
+namespace called redis. This installation would be referred to as the initial revision, or
+the initial deployment of a Helm chart.
+	
+	If a new version of the redis chart becomes available, users can upgrade to a new version
+using the upgrade command:
+
+	----------->      helm upgrade redis bitnami/redis --namespace=redis
+	
+	This would upgrade Redis to meet the specification defined by the newer redis-ha chart.
+	
+	With operating systems, users should be concerned about rollbacks if a bug or vulnerability is found. The same concern exists with applications on Kubernetes, and Helm provides the rollback command to handle this use case:
+
+	------------>     helm rollback redis 1 --namespace=redis
+	
+	
+	To unistall:
+	------------->    helm uninstall redis --namespace=redis
+
+
+Helm simplifies application deployments by determining the order that kubernetes resources need to be created. It analyzes each of a chart's resources and orders them based on their types.
+
+Resources that commonly have resources dependent on them are created first. For example, Secrets and ConfigMaps should be created before Deployments, since deployment would be likely consume those resources as volume. So, helm performs this ordering without any interaction from the user, so the complexity is abstracted and prevents users from needing to worry about the order that these resources are applied.
+
+
+Automated life cycle hooks:
+	Helm provides the ability to define life cycle hooks. Life cycle hooks are actions that take place automatically at different stages of an application's life cycle. They can be used to do things such as:
+
+
+	- Perform a datat backup on an upgrade.
+	- Restore data on a rollback.
+	- Validate a kubernetes environment prior to installation.
+
+
+
+
+Adding updstream repo
+
+	Helm provides the repo subcommand to allow users to manage configured chart repos. This subcomman contains additional subcommands that can be used to perform actions against specified repos.
+
+	- add: to add a chart repo
+	- list: to list chart repos
+	- remove: to remove a chart repos
+	- update: to update info on available charts locally from 			chart repos
+	- index: to generate an index file given a directory 
+				containing packaged charts
+
+
+Adding a chart repos can be accomplished using the repo add subcommand as shown:
+	$ helm repo add $REPO_NAME_ $REPO_URL
+
+
+We can confirm whether a repo has been successfully added by leveraging the repo list subcommand:
+
+$ helm repo list
+
+NAME 						URL 
+bitnami				https://charts.bitnami.com
+
+$ helm repo update
+	To update the repo after package has been installed.
+
+To remove repo that have been added previously.
+	$ helm repo remove bitnami
+
+	• helm diff: Performs a diff between a deployed release and a proposed Helm upgrade
+	• helm secrets: Used to help conceal secrets from Helm charts
+	• helm monitor: Used to monitor a release and perform a rollback if certain events occur
+	• helm unittest: Used to perform unit testing on a Helm chart

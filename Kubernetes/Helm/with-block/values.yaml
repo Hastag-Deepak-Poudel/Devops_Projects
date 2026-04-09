@@ -1,0 +1,11 @@
+container:
+  name: webapp-deployment
+deployment:
+  name: webapp-deployment
+  replicas: 2
+  image:
+    repository: nginx
+    tag: latest
+  ports:
+    port1: 80
+    port2: 8080

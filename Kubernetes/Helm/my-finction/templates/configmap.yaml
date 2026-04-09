@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.name }}-configmap
+  # name: {{ required "Name is required" .Values.name }}-configmap, name has to be provided in required
+  # name: {{ default "my-function" .Values.name }}-configmap, when name is not provided, default is given.
+data:
+  myvalue: "Hello world"
+  drink: {{ .Values.drink | upper | quote }}
+  food: {{ .Values.food | upper | quote }}
