@@ -1,0 +1,12 @@
+app:
+  namespace: my-app-ns
+
+image:
+  repository: nginx
+  tag: "1.25"
+
+replicaCount: 1
+
+service:
+  type: ClusterIP
+  port: 80

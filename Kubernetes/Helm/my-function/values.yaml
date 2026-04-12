@@ -1,9 +1,8 @@
-name: test
-drink: tea
-food: pizza
+# name: prod
+# drink: tea
+# food: pizza
 
-
-environment: dev
+environment: prod
 serviceaccount:
   create: true
 
